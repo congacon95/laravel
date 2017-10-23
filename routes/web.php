@@ -15,7 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/post', "PostController@index");
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/post', 'PostController@index');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/profile/{slug}', 'ProfilesController@index')->name('profile');
+});
